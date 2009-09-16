@@ -326,7 +326,9 @@ module Git
       end
 
       if @git_dir
-        Dir.chdir(@git_dir, &do_get)
+        Dir.chdir(@git_dir) do
+          do_get.call
+        end
       else
         build_list.call
       end
@@ -342,7 +344,9 @@ module Git
       end
       
       if @git_dir
-        Dir.chdir(@git_dir, &build_list)
+        Dir.chdir(@git_dir) do
+          build_list.call
+        end
       else
         build_list.call
       end
